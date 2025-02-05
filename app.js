@@ -1,5 +1,7 @@
 let numeroSecreto
 let intentos
+let listaNumerosSorteados = []
+let numeroMaximo = 10
 
 function condicionesIniciales () {
   // Textos incertados en el html
@@ -21,7 +23,23 @@ function insertarTextoElemento (elemento, texto) {
 
 // Generador de números random
 function generarElNumeroSecreto () {
-  return Math.floor(Math.random()*10)
+  let numeroGenerado = Math.floor(Math.random()*numeroMaximo)+1
+
+  console.log(numeroGenerado)
+  console.log(listaNumerosSorteados)
+
+  if (listaNumerosSorteados.length == numeroMaximo) {
+    insertarTextoElemento('p', 'Ya realizaste todos los intentos')
+  } else {
+      // si el numero generado está incluido en la lista, se vuelve a llamar a si misma para poder generar un nuevo número secreto.
+    // Se realiza con la finalidad de que los número sorteados no se repitan
+      if (listaNumerosSorteados.includes(numeroGenerado)) {
+        return generarElNumeroSecreto()
+      } else {
+        listaNumerosSorteados.push(numeroGenerado)
+        return numeroGenerado
+      }
+  }
 }
 
 
